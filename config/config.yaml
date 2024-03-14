@@ -1,0 +1,9 @@
+run:
+  dataset: "./data/10.npz" # Dataset to use
+  mode: 3 # Mode selection: 1 for only prediction, 2 for only mapping, 3 for mapping and localization
+  downsample: 5 # Downsample factor for the features
+params:
+  landmark_initial_noise: 0.1
+  linear_velocity_noise: 1e-5
+  angular_velocity_noise: 1e-5
+  measurement_noise: 0.1
