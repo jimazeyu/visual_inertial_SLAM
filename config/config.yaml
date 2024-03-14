@@ -4,6 +4,6 @@ run:
   downsample: 5 # Downsample factor for the features
 params:
   landmark_initial_noise: 0.1
-  linear_velocity_noise: 1e-5
-  angular_velocity_noise: 1e-5
+  linear_velocity_noise: 1e-4
+  angular_velocity_noise: 1e-4
   measurement_noise: 0.1

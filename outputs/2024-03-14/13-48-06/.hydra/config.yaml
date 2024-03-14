@@ -1,9 +1,0 @@
-run:
-  dataset: ./data/10.npz
-  mode: 3
-  downsample: 5
-params:
-  landmark_initial_noise: 0.1
-  linear_velocity_noise: 1.0e-05
-  angular_velocity_noise: 1.0e-05
-  measurement_noise: 0.1

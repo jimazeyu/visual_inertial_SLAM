@@ -5,7 +5,7 @@ import scipy
 class ExtendedKalmanFilterSLAM:
 
     def __init__(self, camera_intrinsics, baseline, num_features, cam_T_imu,
-                 landmark_initial_noise=0.1, linear_velocity_noise=1e-5, angular_velocity_noise=1e-5, measurement_noise=0.1,
+                 landmark_initial_noise, linear_velocity_noise, angular_velocity_noise, measurement_noise,
                  only_mapping=False):
         # if only_mapping is True, the robot pose will not be updated by measurement update
         self.only_mapping = only_mapping
@@ -38,13 +38,13 @@ class ExtendedKalmanFilterSLAM:
         self.imu_T_reg[1, 1] = -1
         self.imu_T_reg[2, 2] = -1
 
-    def predict(self, u, dt):
+    def predict(self, u, tau):
         # Update robot pose using motion model
-        self.robot_pose = self.robot_pose @ scipy.linalg.expm(dt * axangle2twist(u))
+        self.robot_pose = self.robot_pose @ scipy.linalg.expm(tau * axangle2twist(u))
 
         if not self.only_mapping:
             # Jacobian matrix of the motion model
-            F = scipy.linalg.expm(-dt * axangle2adtwist(u))[0]
+            F = scipy.linalg.expm(-tau * axangle2adtwist(u))[0]
 
             # Process noise covariance matrix
             W = np.eye(6)
