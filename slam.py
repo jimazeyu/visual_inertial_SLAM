@@ -95,8 +95,8 @@ class ExtendedKalmanFilterSLAM:
         chosen = np.abs(errors).sum(axis=1) < 20
         errors = errors[chosen, :]
         selected_landmarks = selected_landmarks[chosen]
-        num_seen = errors.shape[0]
         existing_cam = existing_cam[:, chosen]
+        num_seen = errors.shape[0]
         errors = errors.flatten()
 
         if num_seen <= 5:
