@@ -10,3 +10,10 @@ pip install -r requirements.txt
 
 # Usage
 1. Use 'python main.py' to run the code with the default config.
+2. You can adjust the params in "./config/config.yaml" to get different mapping results. The params are clearly defined with annotation.
+
+# Results
+- Only Mapping
+![](./results/10/only_mapping.gif)
+- Full SLAM 
+![](./results/10/slam_big_obs_noise.gif)

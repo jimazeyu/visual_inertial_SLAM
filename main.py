@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pr3_utils
+import utils
 import os
 import hydra
 from hydra.utils import get_original_cwd
 from omegaconf import DictConfig
 from slam import ExtendedKalmanFilterSLAM
+import imageio
 
 
 @hydra.main(config_path="config", config_name="config")
@@ -16,7 +17,7 @@ def main(cfg: DictConfig) -> None:
     downsample = cfg.run.downsample
 
     # Load data
-    t, features, linear_velocity, angular_velocity, K, b, cam_T_imu = pr3_utils.load_data(dataset)
+    t, features, linear_velocity, angular_velocity, K, b, cam_T_imu = utils.load_data(dataset)
     total_steps = t.shape[1]
     t = t[0, :]
     features = features[:, ::downsample, :]
@@ -32,7 +33,8 @@ def main(cfg: DictConfig) -> None:
                     angular_velocity_noise=cfg.params.angular_velocity_noise, measurement_noise=cfg.params.measurement_noise)  
 
     poses = []
-    fig, ax = plt.subplots(figsize=(10, 10))
+    fig, ax = plt.subplots(figsize=(8, 8))
+    figure_list = []
 
     # Run SLAM
     for i in range(1, total_steps):
@@ -45,15 +47,35 @@ def main(cfg: DictConfig) -> None:
 
         poses.append(ekf.robot_pose[0])
 
-        if i % 2 == 1:
+        if i % 5 == 1:
             ax.clear()
             poses_to_show = np.array(poses).transpose(1, 2, 0)
-            pr3_utils.visualize_trajectory_2d(ax, poses_to_show, ekf.landmarks)
+            utils.visualize_trajectory_2d(ax, poses_to_show, ekf.landmarks)
             plt.pause(0.01)
+            image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
+            image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
 
+            figure_list.append(image)
+
+        print("Please don't change the size of the plot while the animation is running")
         print(f"Step {i}/{total_steps}")
 
-    plt.show()
+    # Save results
+    print("Saving results...")
+    os.makedirs(get_original_cwd() + "/results", exist_ok=True)
+
+    if mode == 1:
+        result_path = get_original_cwd() + "/results/only_imu.gif"
+    elif mode == 2:
+        result_path = get_original_cwd() + "/results/only_mapping.gif"
+    else:
+        result_path = get_original_cwd() + "/results/full_slam.gif"
+
+    with imageio.get_writer(result_path, mode='I', fps=50) as writer:
+        for image in figure_list:
+            writer.append_data(image)
+
+        
 
 if __name__ == "__main__":
     main()
