@@ -22,20 +22,14 @@ pip install -r requirements.txt
 
 - Full SLAM(measurement noise assumption=2.0)
 
-<div style="width: 50%; float: left;">
-    <img src="./results/03/slam_big_obs_noise.gif" alt="big noise 03">
-</div>
-
-<div style="width: 50%; float: right;">
-    <img src="./results/10/slam_big_obs_noise.gif" alt="big noise 10">
+<div align="left">
+    <img src="./results/03/slam_big_obs_noise.gif" alt="big noise 03" width=49.6%>
+    <img src="./results/10/slam_big_obs_noise.gif" alt="big noise 10" width=49.6%>
 </div>
 
 - Full SLAM(measurement noise assumption=0.1)
 
-<div style="width: 50%; float: left;">
-    <img src="./results/03/slam_small_obs_noise.gif" alt="small noise 03">
-</div>
-
-<div style="width: 50%; float: right;">
-    <img src="./results/10/slam_small_obs_noise.gif" alt="small noise 10">
+<div align="left">
+    <img src="./results/03/slam_small_obs_noise.gif" alt="small noise 03" width=49.6%>
+    <img src="./results/10/slam_small_obs_noise.gif" alt="small noise 10" width=49.6%>
 </div>
