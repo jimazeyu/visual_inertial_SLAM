@@ -15,11 +15,11 @@ pip install -r requirements.txt
 # Results
 - Only Mapping
 
-<div style="width: 40%; float: left;">
+<div style="width: 50%; float: left;">
     <img src="./results/03/only_mapping.gif" alt="only mapping 03">
 </div>
 
-<div style="width: 40%; float: right;">
+<div style="width: 50%; float: right;">
     <img src="./results/10/only_mapping.gif" alt="only mapping 10">
 </div>
 
